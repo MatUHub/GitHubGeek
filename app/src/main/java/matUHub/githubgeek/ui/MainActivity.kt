@@ -1,14 +1,18 @@
-package matUHub.githubgeek
+package matUHub.githubgeek.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import matUHub.githubgeek.app
 import matUHub.githubgeek.databinding.ActivityMainBinding
+import matUHub.githubgeek.domain.ProjectsRepo
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: ReposViewModel by viewModels()
+    private val viewModel: ReposViewModel by viewModels {ReposViewModelFactory(app.gitProjectRepo)}
+    private val adapter = GitProjectAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,12 +21,18 @@ class MainActivity : AppCompatActivity() {
 
         iniViewModelEvents()
         initViewEvents()
-
+initViews()
     }
 
+    private fun initViews() {
+        binding.itemRecycleView.layoutManager = LinearLayoutManager(this)
+        binding.itemRecycleView.adapter = adapter
+    }
+
+
     private fun iniViewModelEvents(){
-        viewModel.echoMessage.observe(this){
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        viewModel.repos.observe(this){
+            adapter.setData(it)
         }
     }
 
