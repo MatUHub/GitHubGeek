@@ -22,4 +22,10 @@ class ReposViewModel(private val gitProjectRepo: ProjectsRepo) : ViewModel() {
                 }
         )
     }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
+
+    }
 }
