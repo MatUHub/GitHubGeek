@@ -11,7 +11,8 @@ import matUHub.githubgeek.domain.ProjectsRepo
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: ReposViewModel by viewModels {ReposViewModelFactory(app.gitProjectRepo)}
+    private val gitRepo: ProjectsRepo by lazy { app.gitProjectRepo }
+    private val viewModel: ReposViewModel by viewModels {ReposViewModelFactory(gitRepo)}
     private val adapter = GitProjectAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
