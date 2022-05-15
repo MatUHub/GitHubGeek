@@ -2,22 +2,31 @@ package matUHub.githubgeek.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
+
+
 import androidx.recyclerview.widget.LinearLayoutManager
 import matUHub.githubgeek.app
+import matUHub.githubgeek.data.MockProjectRepoImpl
 import matUHub.githubgeek.databinding.ActivityMainBinding
 import matUHub.githubgeek.domain.ProjectsRepo
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: ReposViewModel by viewModels {ReposViewModelFactory(app.gitProjectRepo)}
+    @Inject
+    lateinit var gitProjectRepo: ProjectsRepo
+    private val viewModel: ReposViewModel by viewModels{
+        ReposViewModelFactory(gitProjectRepo)
+    }
     private val adapter = GitProjectAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        app.appDependenciesComponent.inject(this)
 
         iniViewModelEvents()
         initViewEvents()

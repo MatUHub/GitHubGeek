@@ -3,21 +3,10 @@ package matUHub.githubgeek.data.retrofit
 import io.reactivex.rxjava3.core.Single
 import matUHub.githubgeek.GitProjectEntity
 import matUHub.githubgeek.domain.ProjectsRepo
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
+import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitProjectRepoImpl: ProjectsRepo {
-
-
-       private val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-           .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        private val api: GitHubApi = retrofit.create(GitHubApi::class.java)
+class RetrofitProjectRepoImpl(private val api: GitHubApi): ProjectsRepo {
 
     override fun observerReposForUser(username: String): Single<List<GitProjectEntity>> {
 
