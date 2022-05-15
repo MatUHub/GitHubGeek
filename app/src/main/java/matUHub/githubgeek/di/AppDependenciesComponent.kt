@@ -12,4 +12,5 @@ import javax.inject.Singleton
 )
 interface AppDependenciesComponent {
     fun inject(mainActivity: MainActivity)
+    fun getDefaultUserName():String
 }

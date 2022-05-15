@@ -5,14 +5,10 @@ import dagger.Provides
 import matUHub.githubgeek.data.retrofit.GitHubApi
 import matUHub.githubgeek.data.retrofit.RetrofitProjectRepoImpl
 import matUHub.githubgeek.domain.ProjectsRepo
-import matUHub.githubgeek.ui.ReposViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.ModuleDeclaration
-import org.koin.dsl.module
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 import kotlin.math.sin
 
@@ -37,6 +33,8 @@ import kotlin.math.sin
         fun provideProjectsRepo(api: GitHubApi): ProjectsRepo{
             return RetrofitProjectRepoImpl(api)
         }
+
+
 
         @Provides
         fun provideBaseUrl(): String{
